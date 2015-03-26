@@ -18,14 +18,12 @@ public class Tile {
 	 * @param x
 	 * @param y
 	 * @param traversable
-	 * @param unit
 	 */
-	public Tile(int x, int y, boolean traversable, Unit unit) {
+	public Tile(int x, int y, boolean traversable) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.traversable = traversable;
-		this.unit = unit;
 	}
 
 
