@@ -85,4 +85,8 @@ public interface Unit {
          * @return the image of the unit.
          */
         public String getImage();
+
+    public void move();
+
+    public void useAbility();
 }
