@@ -9,147 +9,80 @@ import java.util.ArrayList;
  * @author Andrew
  *
  */
-public class Unit {
-	private int maxHp;
-	private int currHp;
-	private int attack;
-	private int defense;
-	private int speed;
-	private ArrayList<Ability> abilityList;
-	private ArrayList<Effect> activeEffectList;
-        private String image;
-	
-	/**
-	 * @param maxHp
-	 * @param currHp
-	 * @param attack
-	 * @param defense
-	 * @param speed
-	 * @param abilityList
-	 * @param activeEffectList
-	 */
-	public Unit(int maxHp, int currHp, int attack, int defense, int speed,
-			ArrayList<Ability> abilityList, ArrayList<Effect> activeEffectList, String image) {
-		super();
-		this.maxHp = maxHp;
-		this.currHp = currHp;
-		this.attack = attack;
-		this.defense = defense;
-		this.speed = speed;
-		this.abilityList = abilityList;
-		this.activeEffectList = activeEffectList;
-                this.image = image;
-	}
-
+public interface Unit {
+    
 	/**
 	 * @return the maxHp
 	 */
-	public int getMaxHp() {
-		return maxHp;
-	}
+	public int getMaxHp();
 
 	/**
 	 * @param maxHp the maxHp to set
 	 */
-	public void setMaxHp(int maxHp) {
-		this.maxHp = maxHp;
-	}
+	public void setMaxHp(int maxHp);
 
 	/**
 	 * @return the currHp
 	 */
-	public int getCurrHp() {
-		return currHp;
-	}
+	public int getCurrHp();
 
 	/**
 	 * @param currHp the currHp to set
 	 */
-	public void setCurrHp(int currHp) {
-		this.currHp = currHp;
-	}
+	public void setCurrHp(int currHp);
 
 	/**
 	 * @return the attack
 	 */
-	public int getAttack() {
-		return attack;
-	}
+	public int getAttack();
 
 	/**
 	 * @param attack the attack to set
 	 */
-	public void setAttack(int attack) {
-		this.attack = attack;
-	}
+	public void setAttack(int attack);
 
 	/**
 	 * @return the defense
 	 */
-	public int getDefense() {
-		return defense;
-	}
+	public int getDefense();
 
 	/**
 	 * @param defense the defense to set
 	 */
-	public void setDefense(int defense) {
-		this.defense = defense;
-	}
+	public void setDefense(int defense);
 
 	/**
 	 * @return the speed
 	 */
-	public int getSpeed() {
-		return speed;
-	}
+	public int getSpeed();
 
 	/**
 	 * @param speed the speed to set
 	 */
-	public void setSpeed(int speed) {
-		this.speed = speed;
-	}
+	public void setSpeed(int speed);
 
 	/**
 	 * @return the abilityList
 	 */
-	public ArrayList<Ability> getAbilityList() {
-		return abilityList;
-	}
+	public ArrayList<Ability> getAbilityList();
 
 	/**
 	 * @param abilityList the abilityList to set
 	 */
-	public void setAbilityList(ArrayList<Ability> abilityList) {
-		this.abilityList = abilityList;
-	}
+	public void setAbilityList(ArrayList<Ability> abilityList);
 
 	/**
 	 * @return the activeEffectList
 	 */
-	public ArrayList<Effect> getActiveEffectList() {
-		return activeEffectList;
-	}
+	public ArrayList<Effect> getActiveEffectList();
 
 	/**
 	 * @param activeEffectList the activeEffectList to set
 	 */
-	public void setActiveEffectList(ArrayList<Effect> activeEffectList) {
-		this.activeEffectList = activeEffectList;
-	}
+	public void setActiveEffectList(ArrayList<Effect> activeEffectList);
         
-        public String getImage()
-        {
-            return image;
-        }
-
-	/**
-	 * @param args
-	 */
-	/*public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}*/
-
+        /**
+         * @return the image of the unit.
+         */
+        public String getImage();
 }
