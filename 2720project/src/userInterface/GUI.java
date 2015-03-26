@@ -104,7 +104,7 @@ public class GUI extends JFrame {
         {
             for (int x=0; x<6; x++)
             {
-                Tile tile = new Tile(x,y,true,null);
+                Tile tile = new Tile(x,y,true);
                 jButtonGrid[x][y] = new GameButton(tile);
                 //jButtonGrid[x][y] = new GameButton(gm.getGameTile(x,y)); //Will use the GameManager to populate the tiles.
                 jButtonGrid[x][y].setToolTipText("("+x+","+y+")");
