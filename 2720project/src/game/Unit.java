@@ -17,6 +17,7 @@ public class Unit {
 	private int speed;
 	private ArrayList<Ability> abilityList;
 	private ArrayList<Effect> activeEffectList;
+        private String image;
 	
 	/**
 	 * @param maxHp
@@ -28,7 +29,7 @@ public class Unit {
 	 * @param activeEffectList
 	 */
 	public Unit(int maxHp, int currHp, int attack, int defense, int speed,
-			ArrayList<Ability> abilityList, ArrayList<Effect> activeEffectList) {
+			ArrayList<Ability> abilityList, ArrayList<Effect> activeEffectList, String image) {
 		super();
 		this.maxHp = maxHp;
 		this.currHp = currHp;
@@ -37,6 +38,7 @@ public class Unit {
 		this.speed = speed;
 		this.abilityList = abilityList;
 		this.activeEffectList = activeEffectList;
+                this.image = image;
 	}
 
 	/**
@@ -136,13 +138,18 @@ public class Unit {
 	public void setActiveEffectList(ArrayList<Effect> activeEffectList) {
 		this.activeEffectList = activeEffectList;
 	}
+        
+        public String getImage()
+        {
+            return image;
+        }
 
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-	}
+	}*/
 
 }

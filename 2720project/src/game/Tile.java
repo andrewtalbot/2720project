@@ -91,14 +91,24 @@ public class Tile {
 	public void setUnit(Unit unit) {
 		this.unit = unit;
 	}
+        
+        public boolean hasUnit() {
+            if (unit==null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
-
-	/**
+        /**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-	}
+	}*/
 
 }
