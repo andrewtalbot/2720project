@@ -3,19 +3,21 @@
  */
 package userInterface;
 
-import game.GameManager;
-import game.Tile;
+import game.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 /**
  * @author Andrew
  */
 public class GUI extends JFrame {
-    private JButton[][] jButtonGrid;
+    private GameButton[][] jButtonGrid;
     private JButton jButton1;
     private JButton jButton2;
+    private JButton jButton3;
+    private JButton jButton4;
     private JLabel jLabel1;
     private JLabel jLabel2;
     private JLabel jLabel3;
@@ -30,6 +32,7 @@ public class GUI extends JFrame {
     private JScrollPane jScrollPane3;
     private JTextArea jTextArea1;
     private GameManager gm;
+    private boolean moveSelect;
     
     /**
      * Creates new form UserInterface
@@ -43,8 +46,6 @@ public class GUI extends JFrame {
      */
     @SuppressWarnings("unchecked")                     
     private void initComponents() {
-        GridBagConstraints gridBagConstraints;
-
         jPanel1 = new JPanel();
         jScrollPane1 = new JScrollPane();
         jList1 = new JList();
@@ -53,6 +54,8 @@ public class GUI extends JFrame {
         jButtonGrid = new GameButton[6][6];
         jButton1 = new JButton();
         jButton2 = new JButton();
+        jButton3 = new JButton();
+        jButton4 = new JButton();
         jPanel3 = new JPanel();
         jLabel2 = new JLabel();
         jScrollPane2 = new JScrollPane();
@@ -62,6 +65,7 @@ public class GUI extends JFrame {
         jScrollPane3 = new JScrollPane();
         jTextArea1 = new JTextArea();
         gm = new GameManager();
+        moveSelect = false;
         
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -118,6 +122,7 @@ public class GUI extends JFrame {
                 jButtonGrid[x][y].setMargin(new java.awt.Insets(2, 2, 2, 2));
                 jButtonGrid[x][y].setMaximumSize(new Dimension(60, 60));
                 jButtonGrid[x][y].setMinimumSize(new Dimension(60, 60));
+                jButtonGrid[x][y].addActionListener(jButtonGrid[x][y]);
                 jPanel2.add(jButtonGrid[x][y]);
             }
         }
@@ -133,17 +138,34 @@ public class GUI extends JFrame {
         });
         jScrollPane2.setViewportView(jList2);
         
-        jButton1.setText("Perform Action");
+        jButton1.setText("Move");
+        jButton1.setEnabled(false);
         jButton1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         
-        jButton2.setText("End Turn");
+        jButton2.setText("Use Ability");
+        jButton2.setEnabled(false);
         jButton2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+        
+        jButton4.setText("End Turn");
+        jButton4.setEnabled(false);
+        jButton4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        
+        jButton3.setText("Start Game");
+        jButton3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -159,7 +181,9 @@ public class GUI extends JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                             .addComponent(jLabel2)
                             .addComponent(jButton1)
-                            .addComponent(jButton2))
+                            .addComponent(jButton2)
+                            .addComponent(jButton3)
+                            .addComponent(jButton4))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -173,6 +197,10 @@ public class GUI extends JFrame {
                 .addComponent(jButton1)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,GroupLayout.DEFAULT_SIZE,Short.MAX_VALUE)
                 .addComponent(jButton2)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,GroupLayout.DEFAULT_SIZE,Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,GroupLayout.DEFAULT_SIZE,Short.MAX_VALUE)
+                .addComponent(jButton4)
                 .addContainerGap())
         );
 
@@ -243,13 +271,107 @@ public class GUI extends JFrame {
     }
     
     private void jButton1ActionPerformed(ActionEvent evt) {                                         
-        // TODO add your handling code here:
+        //System.out.println("ButtonPress");
+        if(jButton1.getText().equals("Move") && !gm.getCurrUnit().isMoved())
+        {
+            gm.moveRange(true);
+            moveSelect = true;
+            jButton1.setText("Cancel");
+        }
+        else if(jButton1.getText().equals("Cancel"))
+        {
+            gm.moveRange(false);
+            moveSelect = false;
+            jButton1.setText("Move");
+        }
+        updateButtons();    
     }                                        
 
     private void jButton2ActionPerformed(ActionEvent evt) {                                         
-        // TODO add your handling code here:
+        
     }
-
+    
+    private void jButton3ActionPerformed(ActionEvent evt) {
+        jButton3.setEnabled(false);
+        gm.initGame();
+        updateButtons();
+        jButton1.setEnabled(true);
+        jButton2.setEnabled(true);
+        jButton4.setEnabled(true);
+    }
+    private void jButton4ActionPerformed(ActionEvent evt) {
+        gm.turn();
+    }
+    
+    private void updateButtons()
+    {
+        for (GameButton[] gb : jButtonGrid)
+        {
+            for (GameButton gbi : gb)
+            {
+                gbi.updateTileImage();
+            }
+        }
+    }
+    
+    public class GameButton extends JButton implements ActionListener {
+        ImageIcon img;
+        Tile tile;
+        public GameButton(Tile tile) {
+            this.tile = tile;
+            //this.gm = gm;
+            updateTileImage();
+        }
+    
+        public void updateTileImage()
+        {
+            if(tile.hasUnit())
+            {
+                img = new ImageIcon(tile.getUnit().getImage());
+                setIcon(img);
+            }
+            else if(tile.isInRange())
+            {
+                img = new ImageIcon(tile.getRngImg());
+                setIcon(img);
+            }
+            else if(tile.isTraversable())
+            {
+                img = new ImageIcon(tile.getImage());
+                setIcon(img);
+            }
+            else
+            {
+                img = new ImageIcon(tile.getImage());
+                setIcon(img);
+            }
+        }
+    
+        @Override
+        public void actionPerformed(ActionEvent evt) 
+        {
+            if (moveSelect)
+            {
+                if(tile.isInRange() && !tile.hasUnit())
+                {
+                    gm.move(tile);
+                    moveSelect = false;
+                    jButton1.setText("Move");
+                    updateButtons();
+                }
+                else
+                {
+                    //out of range
+                }
+            }
+            else
+            {
+                //Popup out of range.
+            }
+            System.out.println("Button Pressed!");
+            updateButtons();
+        }
+    }
     /**
      * @param args
      */

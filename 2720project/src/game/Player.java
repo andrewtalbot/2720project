@@ -17,19 +17,28 @@ public class Player {
     private ArrayList<Unit> team;
     
     
-    public Player(Tile[][] field) {
-        //build team (instantiate new units of type specified by user)
-            
+    public Player() {
+        team = new ArrayList<Unit>();
          
     }
     
+    public void addUnit(Unit u)
+    {
+        team.add(u);
+    }
+    
+    public Unit getUnit(int index)
+    {
+        return team.get(index);
+    }
+    
     public void turn(){
-        team.stream().map((unit) -> {
+        /*team.stream().map((unit) -> {
             unit.move();
             return unit;
         }).forEach((unit) -> {
             unit.useAbility();
-        });
+        });*/
     }
     
     public boolean lose() {

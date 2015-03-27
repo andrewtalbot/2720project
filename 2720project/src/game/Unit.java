@@ -17,11 +17,6 @@ public interface Unit {
 	public int getMaxHp();
 
 	/**
-	 * @param maxHp the maxHp to set
-	 */
-	public void setMaxHp(int maxHp);
-
-	/**
 	 * @return the currHp
 	 */
 	public int getCurrHp();
@@ -37,19 +32,9 @@ public interface Unit {
 	public int getAttack();
 
 	/**
-	 * @param attack the attack to set
-	 */
-	public void setAttack(int attack);
-
-	/**
 	 * @return the defense
 	 */
 	public int getDefense();
-
-	/**
-	 * @param defense the defense to set
-	 */
-	public void setDefense(int defense);
 
 	/**
 	 * @return the speed
@@ -57,19 +42,9 @@ public interface Unit {
 	public int getSpeed();
 
 	/**
-	 * @param speed the speed to set
-	 */
-	public void setSpeed(int speed);
-
-	/**
 	 * @return the abilityList
 	 */
 	public ArrayList<Ability> getAbilityList();
-
-	/**
-	 * @param abilityList the abilityList to set
-	 */
-	public void setAbilityList(ArrayList<Ability> abilityList);
 
 	/**
 	 * @return the activeEffectList
@@ -85,8 +60,32 @@ public interface Unit {
          * @return the image of the unit.
          */
         public String getImage();
+        
+        /**
+         * @param img the image to set.
+         */
+        public void setImage(String img);
+        
+        /**
+         * @param x the x position.
+         * @param y the y position.
+         */
+        public void setPos(int x, int y);
+
+        /**
+         * @return an array containing the x and y positions.
+         */
+    public int[] getPos();
 
     public void move();
 
     public void useAbility();
+    
+    public void setMoved(boolean moved);
+    
+    public boolean isMoved();
+    
+    public void setAbilitied(boolean abilitied);
+    
+    public boolean isAbilitied();
 }

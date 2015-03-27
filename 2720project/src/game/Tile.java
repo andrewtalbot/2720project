@@ -13,6 +13,8 @@ public class Tile {
 	private boolean traversable;
 	private Unit unit;
         private final String image="res/Tile.png";
+        private final String rngImg="res/Tile2.png";
+        private boolean inRange;
 
 	
 	/**
@@ -25,6 +27,7 @@ public class Tile {
 		this.x = x;
 		this.y = y;
 		this.traversable = traversable;
+                inRange = false;
 	}
 
 
@@ -42,6 +45,14 @@ public class Tile {
 	public void setX(int x) {
 		this.x = x;
 	}
+
+    public boolean isInRange() {
+        return inRange;
+    }
+
+    public void setInRange(boolean inRange) {
+        this.inRange = inRange;
+    }
 
 
 	/**
@@ -104,6 +115,10 @@ public class Tile {
 
     public String getImage() {
         return image;
+    }
+
+    public String getRngImg() {
+        return rngImg;
     }
 
         /**
