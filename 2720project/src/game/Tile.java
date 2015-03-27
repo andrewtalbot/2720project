@@ -12,6 +12,7 @@ public class Tile {
 	private int y;
 	private boolean traversable;
 	private Unit unit;
+        private final String image="res/Tile.png";
 
 	
 	/**
@@ -100,6 +101,10 @@ public class Tile {
                 return true;
             }
         }
+
+    public String getImage() {
+        return image;
+    }
 
         /**
 	 * @param args

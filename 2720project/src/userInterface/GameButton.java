@@ -31,12 +31,12 @@ public class GameButton extends JButton implements ActionListener {
         }
         else if(tile.isTraversable())
         {
-            img = new ImageIcon("res/Tile.png");
+            img = new ImageIcon(tile.getImage());
             setIcon(img);
         }
         else
         {
-            img = new ImageIcon("res/Tile.png");
+            img = new ImageIcon(tile.getImage());
             setIcon(img);
         }
     }
