@@ -6,6 +6,7 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -17,16 +18,27 @@ public class Player {
     
     
     public Player(Tile[][] field) {
-        //create instances of unit using input from interface to select type.
+        //build team (instantiate new units of type specified by user)
             
+         
     }
     
     public void turn(){
-        
+        team.stream().map((unit) -> {
+            unit.move();
+            return unit;
+        }).forEach((unit) -> {
+            unit.useAbility();
+        });
     }
     
-    public boolean lose(){
-        return false;
+    public boolean lose() {
+        if(team.isEmpty()){ 
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 }

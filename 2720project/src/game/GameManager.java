@@ -11,28 +11,25 @@ import java.util.*;
  */
 public class GameManager {
         
+        private Tile[][] field;
 
 	public GameManager() {
-		super();
+            super();
+            field = new Tile[6][6];
+               
+            for (int i = 0; i < 6; i++ ){
+                for (int j = 0; j< 6; j++){
+                    field[i][j] = new Tile(i, j, true);
+                }
+            }
 	}
 
+        public Tile[][] getField(){
+            return field;
+        }
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-               Tile[][] field;
-               int rows = 6;
-               int cols = 6;
-               
-               field = new Tile[rows][cols];
-               
-               for (int i = 0; i < rows; i++ ){
-                   for (int j = 0; j< cols; j++){
-                       field[i][j] = new Tile(i, j, true);
-                   }
-               }
+	public void runGame() {
+		// TODO Auto-generated method stub                  
                
                Queue<Player> playerList = new LinkedList();
                for (int i =0; i< 2; i++) playerList.add(new Player(field));
