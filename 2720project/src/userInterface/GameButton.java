@@ -20,10 +20,10 @@ public class GameButton extends JButton implements ActionListener {
     Tile tile;
     public GameButton(Tile tile) {
         this.tile = tile;
-        updateTile();
+        updateTileImage();
     }
     
-    final public void updateTile()
+    final public void updateTileImage()
     {
         if(tile.hasUnit())
         {
@@ -31,19 +31,19 @@ public class GameButton extends JButton implements ActionListener {
         }
         else if(tile.isTraversable())
         {
-            img = new ImageIcon("res/TestTexture.png");
+            img = new ImageIcon("res/Tile.png");
             setIcon(img);
         }
         else
         {
-            img = new ImageIcon("res/TestTexture.png");
+            img = new ImageIcon("res/Tile.png");
             setIcon(img);
         }
     }
     
     @Override
     public void actionPerformed(ActionEvent evt) {                                         
-        updateTile();
+        updateTileImage();
     }
     
 }

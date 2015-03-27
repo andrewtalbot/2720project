@@ -3,6 +3,7 @@
  */
 package userInterface;
 
+import game.GameManager;
 import game.Tile;
 import java.awt.*;
 import java.awt.event.*;
@@ -28,6 +29,7 @@ public class GUI extends JFrame {
     private JScrollPane jScrollPane2;
     private JScrollPane jScrollPane3;
     private JTextArea jTextArea1;
+    private GameManager gm;
     
     /**
      * Creates new form UserInterface
@@ -59,6 +61,8 @@ public class GUI extends JFrame {
         jLabel3 = new JLabel();
         jScrollPane3 = new JScrollPane();
         jTextArea1 = new JTextArea();
+        gm = new GameManager();
+        
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
@@ -104,9 +108,9 @@ public class GUI extends JFrame {
         {
             for (int x=0; x<6; x++)
             {
-                Tile tile = new Tile(x,y,true);
-                jButtonGrid[x][y] = new GameButton(tile);
-                //jButtonGrid[x][y] = new GameButton(gm.getGameTile(x,y)); //Will use the GameManager to populate the tiles.
+                //Tile tile = new Tile(x,y,true);
+                //jButtonGrid[x][y] = new GameButton(tile);
+                jButtonGrid[x][y] = new GameButton(gm.getGameTile(x,y)); //Will use the GameManager to populate the tiles.
                 jButtonGrid[x][y].setToolTipText("("+x+","+y+")");
                 jButtonGrid[x][y].setAlignmentX(0.5F);
                 jButtonGrid[x][y].setBorder(null);
