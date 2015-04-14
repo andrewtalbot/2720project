@@ -8,7 +8,7 @@ package game;
  *
  */
 public class Area {
-	private String shape; //square or circle or line.
+	private String shape; //square or circle or line or cross.
 	private int diameter; //width/height for square, width for line.
 
 	/**

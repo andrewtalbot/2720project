@@ -14,7 +14,7 @@ public class Warrior implements Unit {
     private int currHp;
     private final int attack = 10;
     private final int defense = 6;
-    private final int speed = 2;
+    private final int speed = 3;
     private ArrayList<Ability> abilityList;
     private ArrayList<Effect> activeEffectList;
     private String image;
