@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Warrior implements Unit {
     private final int maxHp = 20;
     private int currHp;
-    private final int attack = 10;
+    private final int attack = 12;
     private final int defense = 6;
     private final int speed = 3;
     private ArrayList<Ability> abilityList;
@@ -21,8 +21,10 @@ public class Warrior implements Unit {
     private boolean moved;
     private boolean abilitied;
     private int[] pos;
+    private String name;
+    private int player;
 
-	public Warrior() 
+	public Warrior(int p)
         {
             currHp = maxHp;
             abilityList = new ArrayList<>();
@@ -32,7 +34,17 @@ public class Warrior implements Unit {
             moved = false;
             abilitied = false;
             pos = new int[2];
+            name = "Warrior";
+            player = p;
 	}
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPlayer() {
+        return player;
+    }
 
 	/**
 	 * @return the maxHp

@@ -21,8 +21,18 @@ public class Wizard implements Unit {
     private boolean moved;
     private boolean abilitied;
     private int[] pos;
+    private String name;
+    private int player;
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPlayer() {
+        return player;
+    }
     
-	public Wizard() {
+	public Wizard(int p) {
             currHp = maxHp;
             abilityList = new ArrayList<>();
             abilityList.add(new Ability(3,2,0,0.5,new Area("Cross",1),0,
@@ -33,6 +43,8 @@ public class Wizard implements Unit {
             moved = false;
             abilitied = false;
             pos = new int[2];
+            name = "Wizard";
+            player = p;
 	}
 
 		/**

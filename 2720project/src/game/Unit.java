@@ -88,4 +88,8 @@ public interface Unit {
     public void setAbilitied(boolean abilitied);
     
     public boolean isAbilitied();
+    
+    public String getName();
+    
+    public int getPlayer();
 }

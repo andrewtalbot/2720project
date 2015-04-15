@@ -21,6 +21,16 @@ public class Archer implements Unit {
     private boolean moved;
     private boolean abilitied;
     private int[] pos;
+    private String name;
+    private int player;
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPlayer() {
+        return player;
+    }
 
     public Archer() {
 	currHp = maxHp;
@@ -33,6 +43,7 @@ public class Archer implements Unit {
             moved = false;
             abilitied = false;
             pos = new int[2];
+            name = "Archer";
     }
         
         	/**

@@ -14,11 +14,15 @@ import java.util.ArrayList;
 public class Player {
     
     private ArrayList<Unit> team;
+    private int player;
     
-    
-    public Player() {
+    public Player(int pl) {
         team = new ArrayList<Unit>();
-         
+        player = pl; 
+    }
+
+    public int getPlayer() {
+        return player;
     }
     
     public void addUnit(Unit u)
@@ -29,6 +33,16 @@ public class Player {
     public Unit getUnit(int index)
     {
         return team.get(index);
+    }
+    
+    public int getSize()
+    {
+        return team.size();
+    }
+    
+    public void killUnit(int index)
+    {
+        team.remove(index);
     }
     
     public void turn(){

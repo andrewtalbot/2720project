@@ -135,7 +135,7 @@ public class GUI extends JFrame {
 
         jLabel2.setText("Action List");
 
-        updateAbilityList();
+        initAbilityList();
         jList2.addListSelectionListener(new ListSelectionListener() {
             public void actionPerformed(ActionEvent evt) {
                 jList2ActionPerformed(evt);
@@ -307,15 +307,15 @@ public class GUI extends JFrame {
         if(jButton2.getText().equals("Use Ability") && !gm.getCurrUnit().isAbilitied() && selectedAbility!=null)
         {
             jList2.setEnabled(false);
-            gm.showAbilityRange(selectedAbility, true);
             abilitySelect = true;
+            gm.showAbilityRange(selectedAbility, true);
             jButton2.setText("Cancel");
             jButton1.setEnabled(false);
             jButton4.setEnabled(false);
         }
         else if(jButton2.getText().equals("Cancel"))
         {
-            gm.moveRange(false);
+            gm.showAbilityRange(selectedAbility, false);
             abilitySelect = false;
             jList2.setEnabled(true);
             jButton2.setText("Use Ability");
@@ -332,11 +332,20 @@ public class GUI extends JFrame {
         jButton1.setEnabled(true);
         jButton2.setEnabled(true);
         jButton4.setEnabled(true);
+        updateTurnOrder();
+        updateAbilityList();
     }
     private void jButton4ActionPerformed(ActionEvent evt) {
         gm.turn();
+        jButton1.setEnabled(true);
+        jButton2.setEnabled(true);
         updateTurnOrder();
         updateAbilityList();
+        if(gm.isLoss())
+        {
+            JOptionPane.showMessageDialog(null, gm.getWinner() + " Wins");
+            System.exit(0);
+        }
     }
     
     private void updateButtons()
@@ -359,15 +368,28 @@ public class GUI extends JFrame {
         {
             private LinkedList<Unit> unitList = gm.getTurnOrder();
             public int getSize() { return unitList.size(); }
-            public Object getElementAt(int i) { return unitList.get(i); }
+            public Object getElementAt(int i) { return "Player " + unitList.get(i).getPlayer() 
+                    + ": " + unitList.get(i).getName(); }
         });
     }
 
+    private void initAbilityList() {
+        jList2.setModel(new AbstractListModel() {
+            ArrayList<Ability> list = new ArrayList<Ability>();
+            public int getSize() { return list.size(); }
+            public Object getElementAt(int i) { return list.get(i).getDescription(); }
+        });
+    }
+    
     private void updateAbilityList() {
         jList2.setModel(new AbstractListModel() {
             ArrayList<Ability> list = gm.getCurrUnit().getAbilityList();
             public int getSize() { return list.size(); }
-            public Object getElementAt(int i) { return list.get(i); }
+            public Object getElementAt(int i) { 
+                selectedAbility = list.get(i);
+                //System.out.println(list.get(i).getDescription());
+                return list.get(i).getDescription();
+             }
         });
     }
     
@@ -407,14 +429,19 @@ public class GUI extends JFrame {
         @Override
         public void actionPerformed(ActionEvent evt) 
         {
+            this.setEnabled(false);
             if (moveSelect)
             {
                 if(tile.isInRange() && !tile.hasUnit())
                 {
-                    gm.move(tile);
                     moveSelect = false;
+                    gm.move(tile);
                     jButton1.setText("Move");
-                    jButton2.setEnabled(true);
+                    jButton1.setEnabled(false);
+                    if (!gm.getCurrUnit().isAbilitied())
+                    {
+                        jButton2.setEnabled(true);
+                    }
                     jButton4.setEnabled(true);
                     updateButtons();
                 }
@@ -427,20 +454,28 @@ public class GUI extends JFrame {
             {
                 if(tile.isInRange())
                 {
-                    gm.useAbility(selectedAbility,tile);
                     abilitySelect = false;
+                    gm.useAbility(selectedAbility,tile);
                     jList2.setEnabled(true);
                     jButton2.setText("Use Ability");
-                    jButton2.setEnabled(true);
+                    jButton2.setEnabled(false);
+                    if (!gm.getCurrUnit().isMoved())
+                    {
+                        jButton1.setEnabled(true);
+                    }
                     jButton4.setEnabled(true);
                     updateButtons();
+                }
+                else
+                {
+                    //out of range
                 }
             }
             else
             {
                 //Popup out of range.
             }
-            System.out.println("Button Pressed!");
+            this.setEnabled(true);
             updateButtons();
         }
     }
