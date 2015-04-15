@@ -16,6 +16,8 @@ public class Ability {
 	private int powerBonus;
 	private String description;
 	private Effect effect;
+        private boolean miss;
+
 	
 	/**
 	 * @param maxRange
@@ -26,9 +28,10 @@ public class Ability {
 	 * @param powerBonus
 	 * @param description
 	 * @param effect
+         * @param miss
 	 */
 	public Ability(int maxRange, int minRange, int coolDown, double powerMod,
-			Area area, int powerBonus, String description, Effect effect) {
+			Area area, int powerBonus, String description, Effect effect, boolean miss ) {
 		super();
 		this.maxRange = maxRange;
 		this.minRange = minRange;
@@ -38,6 +41,7 @@ public class Ability {
 		this.powerBonus = powerBonus;
 		this.description = description;
 		this.effect = effect;
+                this.miss = miss;
 	}
 
 	/**
@@ -152,12 +156,8 @@ public class Ability {
 		this.effect = effect;
 	}
 
-	/**
-	 * @param args
-	 */
-	/*public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}*/
-
+        
+        public boolean isMiss() {
+            return miss;
+    }
 }

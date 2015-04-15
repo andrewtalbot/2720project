@@ -48,14 +48,4 @@ public class Area {
 	public void setRadius(int radius) {
 		this.radius = radius;
 	}
-
-	/**
-	 * @param args
-	 */
-	/*public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}*/
-
-
 }

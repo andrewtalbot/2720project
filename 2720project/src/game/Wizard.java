@@ -14,7 +14,7 @@ public class Wizard implements Unit {
     private int currHp;
     private final int attack = 6;
     private final int defense = 3;
-    private final int speed = 1;
+    private final int speed = 2;
     private ArrayList<Ability> abilityList;
     private ArrayList<Effect> activeEffectList;
     private String image;
@@ -25,8 +25,10 @@ public class Wizard implements Unit {
 	public Wizard() {
             currHp = maxHp;
             abilityList = new ArrayList<>();
-            abilityList.add(new Ability(1,1,0,1.0,new Area("Square",1),0,
-                    "Basic Attack",new Effect("None",1.0,0)));
+            abilityList.add(new Ability(3,2,0,0.5,new Area("Cross",1),0,
+                    "Arcane Burst",new Effect("None",1.0,0),false));
+            abilityList.add(new Ability(2,1,0,1.0,new Area("Square",0),0,
+                    "Magic Missile",new Effect("None",1.0,0),false));
             activeEffectList = new ArrayList<>();
             moved = false;
             abilitied = false;

@@ -14,7 +14,7 @@ public class Warrior implements Unit {
     private int currHp;
     private final int attack = 10;
     private final int defense = 6;
-    private final int speed = 2;
+    private final int speed = 3;
     private ArrayList<Ability> abilityList;
     private ArrayList<Effect> activeEffectList;
     private String image;
@@ -26,8 +26,8 @@ public class Warrior implements Unit {
         {
             currHp = maxHp;
             abilityList = new ArrayList<>();
-            abilityList.add(new Ability(1,1,0,1.0,new Area("Square",1),0,
-                    "Basic Attack",new Effect("None",1.0,0)));
+            abilityList.add(new Ability(1,1,0,1.0,new Area("Square",0),0,
+                    "Basic Attack",new Effect("None",1.0,0),true));
             activeEffectList = new ArrayList<>();
             moved = false;
             abilitied = false;
