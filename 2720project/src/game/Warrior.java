@@ -26,8 +26,8 @@ public class Warrior implements Unit {
         {
             currHp = maxHp;
             abilityList = new ArrayList<>();
-            abilityList.add(new Ability(1,1,0,1.0,new Area("Square",1),0,
-                    "Basic Attack",new Effect("None",1.0,0)));
+            abilityList.add(new Ability(1,1,0,1.0,new Area("Square",0),0,
+                    "Basic Attack",new Effect("None",1.0,0),true));
             activeEffectList = new ArrayList<>();
             moved = false;
             abilitied = false;

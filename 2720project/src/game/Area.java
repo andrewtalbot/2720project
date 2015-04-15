@@ -48,14 +48,4 @@ public class Area {
 	public void setDiameter(int diameter) {
 		this.diameter = diameter;
 	}
-
-	/**
-	 * @param args
-	 */
-	/*public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}*/
-
-
 }

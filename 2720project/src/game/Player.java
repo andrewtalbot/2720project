@@ -6,7 +6,6 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  *
@@ -33,12 +32,7 @@ public class Player {
     }
     
     public void turn(){
-        /*team.stream().map((unit) -> {
-            unit.move();
-            return unit;
-        }).forEach((unit) -> {
-            unit.useAbility();
-        });*/
+        
     }
     
     public boolean lose() {

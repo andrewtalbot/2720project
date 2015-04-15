@@ -25,10 +25,10 @@ public class Wizard implements Unit {
 	public Wizard() {
             currHp = maxHp;
             abilityList = new ArrayList<>();
-            abilityList.add(new Ability(3,2,0,0.5,new Area("Cross",3),0,
-                    "Arcane Burst",new Effect("None",1.0,0)));
-            abilityList.add(new Ability(2,1,0,1.0,new Area("Square",1),0,
-                    "Magic Missile",new Effect("None",1.0,0)));
+            abilityList.add(new Ability(3,2,0,0.5,new Area("Cross",1),0,
+                    "Arcane Burst",new Effect("None",1.0,0),false));
+            abilityList.add(new Ability(2,1,0,1.0,new Area("Square",0),0,
+                    "Magic Missile",new Effect("None",1.0,0),false));
             activeEffectList = new ArrayList<>();
             moved = false;
             abilitied = false;
