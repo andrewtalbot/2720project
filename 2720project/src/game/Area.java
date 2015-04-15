@@ -9,16 +9,16 @@ package game;
  */
 public class Area {
 	private String shape; //square or circle or line.
-	private int diameter; //width/height for square, width for line.
+	private int radius; //width/height for square, width for line.
 
 	/**
 	 * @param shape
 	 * @param diameter
 	 */
-	public Area(String shape, int diameter) {
+	public Area(String shape, int radius) {
 		super();
 		this.shape = shape;
-		this.diameter = diameter;
+		this.radius = radius;
 	}
 
 	/**
@@ -36,17 +36,17 @@ public class Area {
 	}
 
 	/**
-	 * @return the diameter
+	 * @return the radius
 	 */
-	public int getDiameter() {
-		return diameter;
+	public int getRadius() {
+		return radius;
 	}
 
 	/**
-	 * @param diameter the diameter to set
+	 * @param radius the radius to set
 	 */
-	public void setDiameter(int diameter) {
-		this.diameter = diameter;
+	public void setRadius(int radius) {
+		this.radius = radius;
 	}
 
 	/**

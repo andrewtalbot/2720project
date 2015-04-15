@@ -7,7 +7,11 @@ import game.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  * @author Andrew
@@ -33,6 +37,8 @@ public class GUI extends JFrame {
     private JTextArea jTextArea1;
     private GameManager gm;
     private boolean moveSelect;
+    private boolean abilitySelect;
+    private Ability selectedAbility;
     
     /**
      * Creates new form UserInterface
@@ -66,6 +72,8 @@ public class GUI extends JFrame {
         jTextArea1 = new JTextArea();
         gm = new GameManager();
         moveSelect = false;
+        abilitySelect = false;
+        selectedAbility = null;
         
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -75,11 +83,7 @@ public class GUI extends JFrame {
 
         jPanel1.setBorder(BorderFactory.createEtchedBorder());
 
-        jList1.setModel(new AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+        updateTurnOrder();
         jScrollPane1.setViewportView(jList1);
 
         jLabel1.setText("Turn Order");
@@ -131,11 +135,18 @@ public class GUI extends JFrame {
 
         jLabel2.setText("Action List");
 
-        jList2.setModel(new AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+        updateAbilityList();
+        jList2.addListSelectionListener(new ListSelectionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jList2ActionPerformed(evt);
+            }
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                updateAbilityList();
+            }
         });
+        
         jScrollPane2.setViewportView(jList2);
         
         jButton1.setText("Move");
@@ -277,18 +288,41 @@ public class GUI extends JFrame {
             gm.moveRange(true);
             moveSelect = true;
             jButton1.setText("Cancel");
+            jButton2.setEnabled(false);
+            jButton4.setEnabled(false);
         }
         else if(jButton1.getText().equals("Cancel"))
         {
             gm.moveRange(false);
             moveSelect = false;
             jButton1.setText("Move");
+            jButton2.setEnabled(true);
+            jButton4.setEnabled(true);
         }
         updateButtons();    
     }                                        
 
-    private void jButton2ActionPerformed(ActionEvent evt) {                                         
-        
+    private void jButton2ActionPerformed(ActionEvent evt) 
+    {                                         
+        if(jButton2.getText().equals("Use Ability") && !gm.getCurrUnit().isAbilitied() && selectedAbility!=null)
+        {
+            jList2.setEnabled(false);
+            gm.showAbilityRange(selectedAbility, true);
+            abilitySelect = true;
+            jButton2.setText("Cancel");
+            jButton1.setEnabled(false);
+            jButton4.setEnabled(false);
+        }
+        else if(jButton2.getText().equals("Cancel"))
+        {
+            gm.moveRange(false);
+            abilitySelect = false;
+            jList2.setEnabled(true);
+            jButton2.setText("Use Ability");
+            jButton1.setEnabled(true);
+            jButton4.setEnabled(true);
+        }
+        updateButtons();
     }
     
     private void jButton3ActionPerformed(ActionEvent evt) {
@@ -301,6 +335,8 @@ public class GUI extends JFrame {
     }
     private void jButton4ActionPerformed(ActionEvent evt) {
         gm.turn();
+        updateTurnOrder();
+        updateAbilityList();
     }
     
     private void updateButtons()
@@ -312,6 +348,27 @@ public class GUI extends JFrame {
                 gbi.updateTileImage();
             }
         }
+    }
+
+    private void jList2ActionPerformed(ActionEvent evt) {
+        selectedAbility = (Ability) jList2.getSelectedValue();
+    }
+    
+    private void updateTurnOrder() {
+        jList1.setModel(new AbstractListModel() 
+        {
+            private LinkedList<Unit> unitList = gm.getTurnOrder();
+            public int getSize() { return unitList.size(); }
+            public Object getElementAt(int i) { return unitList.get(i); }
+        });
+    }
+
+    private void updateAbilityList() {
+        jList2.setModel(new AbstractListModel() {
+            ArrayList<Ability> list = gm.getCurrUnit().getAbilityList();
+            public int getSize() { return list.size(); }
+            public Object getElementAt(int i) { return list.get(i); }
+        });
     }
     
     public class GameButton extends JButton implements ActionListener {
@@ -357,11 +414,26 @@ public class GUI extends JFrame {
                     gm.move(tile);
                     moveSelect = false;
                     jButton1.setText("Move");
+                    jButton2.setEnabled(true);
+                    jButton4.setEnabled(true);
                     updateButtons();
                 }
                 else
                 {
                     //out of range
+                }
+            }
+            else if (abilitySelect && selectedAbility!=null)
+            {
+                if(tile.isInRange())
+                {
+                    gm.useAbility(selectedAbility,tile);
+                    abilitySelect = false;
+                    jList2.setEnabled(true);
+                    jButton2.setText("Use Ability");
+                    jButton2.setEnabled(true);
+                    jButton4.setEnabled(true);
+                    updateButtons();
                 }
             }
             else

@@ -3,6 +3,7 @@
  */
 package game;
 
+import static java.lang.Math.floor;
 import java.util.*;
 
 /**
@@ -12,9 +13,13 @@ import java.util.*;
 public class GameManager implements Runnable {
         
         private Tile[][] field;
-        private Queue<Player> playerList;
-        private Queue<Unit> turnOrder;
+        private LinkedList<Player> playerList;
+        private LinkedList<Unit> turnOrder;
         private Unit currUnit;
+
+    public LinkedList<Unit> getTurnOrder() {
+        return turnOrder;
+    }
 
 	public GameManager() {
             super();
@@ -24,7 +29,7 @@ public class GameManager implements Runnable {
                
             for (int i = 0; i < 6; i++ ){
                 for (int j = 0; j< 6; j++){
-                    field[i][j] = new Tile(i, j, true);
+                    field[j][i] = new Tile(j, i, true);
                 }
             }
 	}
@@ -63,7 +68,6 @@ public class GameManager implements Runnable {
     
         private void unitSelection(Player p)
         {
-            ArrayList<Ability> abilityList = new ArrayList<Ability>();
             Unit testWar = new Warrior();
             p.addUnit((Unit) testWar);
         }
@@ -86,8 +90,9 @@ public class GameManager implements Runnable {
     public void turn() {
         currUnit.setMoved(false);
         currUnit.setAbilitied(false);
-        turnOrder.add(currUnit);
-        currUnit = turnOrder.remove();
+        turnOrder.removeFirst();
+        turnOrder.addLast(currUnit);
+        currUnit = turnOrder.getFirst();
         
     }
     
@@ -112,6 +117,104 @@ public class GameManager implements Runnable {
             markTile(new int[] {pos[0]+1,pos[1]},spd-1,active);
             markTile(new int[] {pos[0],pos[1]-1},spd-1,active);
             markTile(new int[] {pos[0],pos[1]+1},spd-1,active);
+        }
+    }
+    
+    private void markTileAbility(int[] pos, int spd, boolean active) {
+        if (pos[0] <= 5 && pos[0] >= 0 && pos[1] <= 5 && pos[1] >= 0 && spd > 0)
+        {
+            field[pos[0]][pos[1]].setInRange(active);
+            markTile(new int[] {pos[0]-1,pos[1]},spd-1,active);
+            markTile(new int[] {pos[0]+1,pos[1]},spd-1,active);
+            markTile(new int[] {pos[0],pos[1]-1},spd-1,active);
+            markTile(new int[] {pos[0],pos[1]+1},spd-1,active);
+        }
+    }
+
+    public void showAbilityRange(Ability selectedAbility, boolean active) 
+    {
+        int range = selectedAbility.getMaxRange();
+        int min = selectedAbility.getMinRange();
+        int[] pos = currUnit.getPos();
+        if (active)
+        {
+            markTileAbility(new int[] {pos[0]-1,pos[1]},range-1,active);
+            markTileAbility(new int[] {pos[0]+1,pos[1]},range-1,active);
+            markTileAbility(new int[] {pos[0],pos[1]-1},range-1,active);
+            markTileAbility(new int[] {pos[0],pos[1]+1},range-1,active);
+            markTileAbility(new int[] {pos[0]-1,pos[1]},min-1,false);
+            markTileAbility(new int[] {pos[0]+1,pos[1]},min-1,false);
+            markTileAbility(new int[] {pos[0],pos[1]-1},min-1,false);
+            markTileAbility(new int[] {pos[0],pos[1]+1},min-1,false);
+        }
+        else
+        {
+            markTileAbility(new int[] {pos[0]-1,pos[1]},range-1,active);
+            markTileAbility(new int[] {pos[0]+1,pos[1]},range-1,active);
+            markTileAbility(new int[] {pos[0],pos[1]-1},range-1,active);
+            markTileAbility(new int[] {pos[0],pos[1]+1},range-1,active);
+        }
+    }
+
+    public void useAbility(Ability selectedAbility, Tile tile) {
+        ArrayList<Unit> units = new ArrayList<Unit>();
+        if (selectedAbility.getArea().getShape().equals("Square"))
+        {
+            units.add(tile.getUnit());
+            for(int i = tile.getY()-selectedAbility.getArea().getRadius();
+                    i < tile.getY()+selectedAbility.getArea().getRadius();i++)
+            {
+                for(int j = tile.getX()-selectedAbility.getArea().getRadius();
+                        j < tile.getX()+selectedAbility.getArea().getRadius();j++)
+                {
+                    if (j>=0 && j < 6 && i>=0 && i < 6 && field[j][i].hasUnit())
+                    {
+                        units.add(field[j][i].getUnit());
+                    }
+                }
+            }
+        }
+        else if (selectedAbility.getArea().getShape().equals("Cross"))
+        {
+            units.add(tile.getUnit());
+            int x = tile.getX(); 
+            int y = tile.getY();
+            for(int j = tile.getX()-selectedAbility.getArea().getRadius();
+                    j < tile.getX()+selectedAbility.getArea().getRadius();j++)
+            {
+                if (j>=0 && j < 6 && y>=0 && y < 6 && field[j][y].hasUnit())
+                {
+                    units.add(field[j][y].getUnit());
+                }
+            }
+            for(int j = tile.getY()-selectedAbility.getArea().getRadius();
+                    j < tile.getY()+selectedAbility.getArea().getRadius();j++)
+            {
+                if (j>=0 && j < 6 && x>=0 && x < 6 && field[x][j].hasUnit())
+                {
+                    units.add(field[x][j].getUnit());
+                }
+            }
+        }
+        for (Unit u: units)
+        {
+            if(selectedAbility.isMiss())
+            {
+                Random rand = new Random();
+                int hit = rand.nextInt(currUnit.getAttack() - 0 +1)+1;
+                
+                if (u.getDefense() <= hit)
+                {
+                    int damage = ((int)floor((currUnit.getAttack()*selectedAbility.getPowerMod())))
+                            +(selectedAbility.getPowerBonus());
+                }
+                
+            }
+            else
+            {
+                int damage = ((int)floor((currUnit.getAttack()*selectedAbility.getPowerMod())))
+                            +(selectedAbility.getPowerBonus());
+            }
         }
     }
 
