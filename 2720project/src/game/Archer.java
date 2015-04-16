@@ -1,19 +1,21 @@
 /**
- * 
+ *
  */
 package game;
 
 import java.util.ArrayList;
 
 /**
- * @author Andrew
- *
+ * @author Andrew 
+ * Class which keeps track of the attributes and abilities of the
+ * Archer unit.
  */
 public class Archer implements Unit {
+
     private final int maxHp = 18;
     private int currHp;
     private final int attack = 8;
-    private final int defense = 4;
+    private final int defense = 3;
     private final int speed = 1;
     private ArrayList<Ability> abilityList;
     private ArrayList<Effect> activeEffectList;
@@ -24,141 +26,125 @@ public class Archer implements Unit {
     private String name;
     private int player;
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public int getPlayer() {
         return player;
     }
 
+    /**
+     * Method to construct the archer unit.
+     *
+     * @param p the player which the archer will belong to.
+     */
     public Archer(int p) {
-	currHp = maxHp;
-            abilityList = new ArrayList<>();
-            abilityList.add(new Ability(4,1,0,1.0,new Area("Square",0),0,
-                    "Ranged Attack",new Effect("None",1.0,0),true));
-            /*abilityList.add(new Ability(1,0,0,0.5,new Area("Square",0),0,
-                    "Melee Attack",new Effect("None",1.0,0),true));*/
-            activeEffectList = new ArrayList<>();
-            moved = false;
-            abilitied = false;
-            pos = new int[2];
-            name = "Archer";
-            player = p;
+        currHp = maxHp;
+        abilityList = new ArrayList<>();
+        abilityList.add(new Ability(4, 1, 0, 1.0, new Area("Square", 0), 0,
+                "Ranged Attack", new Effect("None", 1.0, 0), true));
+        abilityList.add(new Ability(1, 0, 0, 0.5, new Area("Square", 0), 0,
+                "Melee Attack", new Effect("None", 1.0, 0), true));
+        activeEffectList = new ArrayList<>();
+        moved = false;
+        abilitied = false;
+        pos = new int[2];
+        name = "Archer";
+        player = p;
     }
-        
-        	/**
-	 * @return the maxHp
-	 */
-    @Override
-	public int getMaxHp() {
-		return maxHp;
-	}
 
+    @Override
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    @Override
     public void setPos(int x, int y) {
         pos[0] = x;
         pos[1] = y;
     }
 
+    @Override
     public int[] getPos() {
         return pos;
     }
 
-	/**
-	 * @return the currHp
-	 */
     @Override
-	public int getCurrHp() {
-		return currHp;
-	}
+    public int getCurrHp() {
+        return currHp;
+    }
 
-	/**
-	 * @param currHp the currHp to set
-	 */
     @Override
-	public void setCurrHp(int currHp) {
-		this.currHp = currHp;
-	}
+    public void setCurrHp(int currHp) {
+        this.currHp = currHp;
+    }
 
-	/**
-	 * @return the attack
-	 */
     @Override
-	public int getAttack() {
-		return attack;
-	}
+    public int getAttack() {
+        return attack;
+    }
 
-	/**
-	 * @return the defense
-	 */
     @Override
-	public int getDefense() {
-		return defense;
-	}
+    public int getDefense() {
+        return defense;
+    }
 
-	/**
-	 * @return the speed
-	 */
     @Override
-	public int getSpeed() {
-		return speed;
-	}
+    public int getSpeed() {
+        return speed;
+    }
 
-	/**
-	 * @return the abilityList
-	 */
     @Override
-	public ArrayList<Ability> getAbilityList() {
-		return abilityList;
-	}
+    public ArrayList<Ability> getAbilityList() {
+        return abilityList;
+    }
 
-	/**
-	 * @return the activeEffectList
-	 */
     @Override
-	public ArrayList<Effect> getActiveEffectList() {
-		return activeEffectList;
-	}
+    public ArrayList<Effect> getActiveEffectList() {
+        return activeEffectList;
+    }
 
+    @Override
     public void setMoved(boolean moved) {
         this.moved = moved;
     }
 
+    @Override
     public void setAbilitied(boolean abilitied) {
         this.abilitied = abilitied;
     }
 
+    @Override
     public boolean isMoved() {
         return moved;
     }
 
+    @Override
     public boolean isAbilitied() {
         return abilitied;
     }
 
-	/**
-	 * @param activeEffectList the activeEffectList to set
-	 */
     @Override
-	public void setActiveEffectList(ArrayList<Effect> activeEffectList) {
-		this.activeEffectList = activeEffectList;
-	}
-        
-    @Override
-        public String getImage()
-        {
-            return image;
-        }
+    public void setActiveEffectList(ArrayList<Effect> activeEffectList) {
+        this.activeEffectList = activeEffectList;
+    }
 
     @Override
-    public void move() 
-    {
-        
+    public String getImage() {
+        return image;
+    }
+
+    @Override
+    public void move() {
+
     }
 
     @Override
     public void useAbility() {
-        
+
     }
 
     @Override

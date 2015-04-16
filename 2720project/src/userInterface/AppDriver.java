@@ -10,10 +10,12 @@ import javax.swing.UIManager;
 
 /**
  *
- * @author Andrew
+ * @author Andrew Method to initialize the program, calls the GUI.
  */
 public class AppDriver {
+
     /**
+     * Main method which is needed to start the program.
      * @param args
      */
     public static void main(String args[]) {

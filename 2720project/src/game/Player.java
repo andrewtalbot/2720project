@@ -9,61 +9,87 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Travis
+ * @author Travis Class which contains the details of a player.
  */
 public class Player {
-    
+
     private ArrayList<Unit> team;
     private int player;
-    
+
+    /**
+     * Constructor which initializes a player.
+     * @param pl the player number.
+     */
     public Player(int pl) {
         team = new ArrayList<Unit>();
-        player = pl; 
+        player = pl;
     }
 
+    /**
+     * Method to get the player number.
+     * @return an int containing the player number
+     */
     public int getPlayer() {
         return player;
     }
-    
-    public ArrayList<Unit> getTeam()
-    {
+
+    /**
+     * Method to get the team of units a player commands.
+     * @return the list of units.
+     */
+    public ArrayList<Unit> getTeam() {
         return team;
     }
-    
-    public void setTeam(ArrayList<Unit> unitList)
-    {
-        this.team=unitList;
+
+    /**
+     * Method to set the team of units a player commands.
+     * @param unitList 
+     */
+    public void setTeam(ArrayList<Unit> unitList) {
+        this.team = unitList;
     }
-    
-    public void addUnit(Unit u)
-    {
+
+    /**
+     * Method to add a unit to the team of units a player commands.
+     * @param u unit to be added.
+     */
+    public void addUnit(Unit u) {
         team.add(u);
     }
-    
-    public Unit getUnit(int index)
-    {
+
+    /**
+     * Method to get a unit within the team based on a given index.
+     * @param index
+     * @return the unit at index
+     */
+    public Unit getUnit(int index) {
         return team.get(index);
     }
-    
-    public int getSize()
-    {
+
+    /**
+     * Method to get the size of the team.
+     * @return the size of the team
+     */
+    public int getSize() {
         return team.size();
     }
-    
-    public void killUnit(int index)
-    {
+
+    /**
+     * Method to remove a unit at a given index.
+     * @param index 
+     */
+    public void killUnit(int index) {
         team.remove(index);
     }
     
-    public void turn(){
-        
-    }
-    
+    /**
+     * Method to check if a player has lost by losing all his units.
+     * @return true if a players team is empty.
+     */
     public boolean lose() {
-        if(team.isEmpty()){ 
+        if (team.isEmpty()) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
