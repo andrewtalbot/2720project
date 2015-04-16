@@ -291,7 +291,7 @@ public class GUI extends JFrame {
             gm.moveRange(true);
             jTextArea1.setText(gm.getCurrUnit().getPlayer() + "st Player's "
                     + gm.getCurrUnit().getName() + " turn. \nHP: " + gm.getCurrUnit().getCurrHp()
-                            + "/" + gm.getCurrUnit().getMaxHp() + "\nPlease select where you want to move.");
+                    + "/" + gm.getCurrUnit().getMaxHp() + "\nPlease select where you want to move.");
             moveSelect = true;
             jButton1.setText("Cancel");
             jButton2.setEnabled(false);
@@ -300,10 +300,12 @@ public class GUI extends JFrame {
             gm.moveRange(false);
             jTextArea1.setText(gm.getCurrUnit().getPlayer() + "st Player's "
                     + gm.getCurrUnit().getName() + " turn.\nHP: " + gm.getCurrUnit().getCurrHp()
-                            + "/" + gm.getCurrUnit().getMaxHp() + "\n");
+                    + "/" + gm.getCurrUnit().getMaxHp() + "\n");
             moveSelect = false;
             jButton1.setText("Move");
-            jButton2.setEnabled(true);
+            if (!gm.getCurrUnit().isAbilitied()) {
+                jButton2.setEnabled(true);
+            }
             jButton4.setEnabled(true);
         }
         updateButtons();
@@ -322,7 +324,7 @@ public class GUI extends JFrame {
             gm.showAbilityRange(selectedAbility, true);
             jTextArea1.setText(gm.getCurrUnit().getPlayer() + "st Player's "
                     + gm.getCurrUnit().getName() + " turn. \nHP: " + gm.getCurrUnit().getCurrHp()
-                            + "/" + gm.getCurrUnit().getMaxHp() + "\nUsing " + selectedAbility.getDescription()
+                    + "/" + gm.getCurrUnit().getMaxHp() + "\nUsing " + selectedAbility.getDescription()
                     + " please select where you want to strike.");
             jButton2.setText("Cancel");
             jButton1.setEnabled(false);
@@ -331,11 +333,13 @@ public class GUI extends JFrame {
             gm.showAbilityRange(selectedAbility, false);
             jTextArea1.setText(gm.getCurrUnit().getPlayer() + "st Player's "
                     + gm.getCurrUnit().getName() + " turn.\nHP: " + gm.getCurrUnit().getCurrHp()
-                            + "/" + gm.getCurrUnit().getMaxHp() + "\n");
+                    + "/" + gm.getCurrUnit().getMaxHp() + "\n");
             abilitySelect = false;
             jList2.setEnabled(true);
             jButton2.setText("Use Ability");
-            jButton1.setEnabled(true);
+            if (!gm.getCurrUnit().isMoved()) {
+                jButton1.setEnabled(true);
+            }
             jButton4.setEnabled(true);
         }
         updateButtons();
@@ -351,7 +355,7 @@ public class GUI extends JFrame {
         gm.initGame();
         jTextArea1.setText(gm.getCurrUnit().getPlayer() + "st Player's "
                 + gm.getCurrUnit().getName() + " turn.\nHP: " + gm.getCurrUnit().getCurrHp()
-                            + "/" + gm.getCurrUnit().getMaxHp() + "\n");
+                + "/" + gm.getCurrUnit().getMaxHp() + "\n");
         updateButtons();
         jButton1.setEnabled(true);
         jButton2.setEnabled(true);
@@ -369,7 +373,7 @@ public class GUI extends JFrame {
         gm.turn();
         jTextArea1.setText(gm.getCurrUnit().getPlayer() + "st Player's "
                 + gm.getCurrUnit().getName() + " turn.\nHP: " + gm.getCurrUnit().getCurrHp()
-                            + "/" + gm.getCurrUnit().getMaxHp() + "\n");
+                + "/" + gm.getCurrUnit().getMaxHp() + "\n");
         jButton1.setEnabled(true);
         jButton2.setEnabled(true);
         updateTurnOrder();
