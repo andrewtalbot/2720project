@@ -70,7 +70,7 @@ public class GameManager implements Runnable {
         playerList.add(p1);
         playerList.add(p2);
         unitSelection(p1, 1);
-        getField()[0][5].setUnit(p1.getUnit(0));
+        getField()[0][0].setUnit(p1.getUnit(0));
         p1.getUnit(0).setPos(0, 0);
         p1.getUnit(0).setImage("res/Archer-purple.png");
         getField()[1][3].setUnit(p1.getUnit(1));
@@ -79,7 +79,7 @@ public class GameManager implements Runnable {
         getField()[1][2].setUnit(p1.getUnit(2));
         p1.getUnit(2).setPos(1, 2);
         p1.getUnit(2).setImage("res/Warrior-purple.png");
-        getField()[0][0].setUnit(p1.getUnit(3));
+        getField()[0][5].setUnit(p1.getUnit(3));
         p1.getUnit(3).setPos(0, 5);
         p1.getUnit(3).setImage("res/Wizard-purple.png");
         unitSelection(p2, 2);
