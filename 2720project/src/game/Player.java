@@ -25,6 +25,16 @@ public class Player {
         return player;
     }
     
+    public ArrayList<Unit> getTeam()
+    {
+        return team;
+    }
+    
+    public void setTeam(ArrayList<Unit> unitList)
+    {
+        this.team=unitList;
+    }
+    
     public void addUnit(Unit u)
     {
         team.add(u);

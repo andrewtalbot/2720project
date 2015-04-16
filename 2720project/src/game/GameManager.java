@@ -51,14 +51,32 @@ public class GameManager implements Runnable {
             playerList.add(p1);
             playerList.add(p2);
             unitSelection(p1,1);
-            getField()[0][3].setUnit(p1.getUnit(0));
-            p1.getUnit(0).setPos(0, 3);
+            getField()[0][5].setUnit(p1.getUnit(0));
+            p1.getUnit(0).setPos(0,5);
             p1.getUnit(0).setImage("res/Warrior-purple.png");
+            getField()[1][3].setUnit(p1.getUnit(1));
+            p1.getUnit(1).setPos(1,3);
+            p1.getUnit(1).setImage("res/Warrior-purple.png");
+            getField()[1][2].setUnit(p1.getUnit(2));
+            p1.getUnit(2).setPos(1,4);
+            p1.getUnit(2).setImage("res/Warrior-purple.png");
+            getField()[0][0].setUnit(p1.getUnit(3));
+            p1.getUnit(3).setPos(0,0);
+            p1.getUnit(3).setImage("res/Warrior-purple.png");
             unitSelection(p2,2);
-            getField()[5][3].setUnit(p2.getUnit(0));
-            p2.getUnit(0).setPos(5, 3);
+            getField()[5][5].setUnit(p2.getUnit(0));
+            p2.getUnit(0).setPos(5,5);
             p2.getUnit(0).setImage("res/Warrior-green.png");
-            for (int i=0; i<1; i++)
+            getField()[4][3].setUnit(p2.getUnit(1));
+            p2.getUnit(1).setPos(4,3);
+            p2.getUnit(1).setImage("res/Warrior-green.png");
+            getField()[4][2].setUnit(p2.getUnit(2));
+            p2.getUnit(2).setPos(4,4);
+            p2.getUnit(2).setImage("res/Warrior-green.png");
+            getField()[5][0].setUnit(p2.getUnit(3));
+            p2.getUnit(3).setPos(5,0);
+            p2.getUnit(3).setImage("res/Warrior-green.png");
+            for (int i=0; i<4; i++)
             {
                 turnOrder.add(p1.getUnit(i));
                 turnOrder.add(p2.getUnit(i));
@@ -68,8 +86,14 @@ public class GameManager implements Runnable {
     
         private void unitSelection(Player p, int num)
         {
-            Unit testWar = new Warrior(num);
-            p.addUnit((Unit) testWar);
+            Unit archer = new Archer(num);
+            p.addUnit((Unit) archer);
+            Unit warrior1 = new Warrior(num);
+            p.addUnit((Unit) warrior1);
+            Unit warrior2 = new Warrior(num);
+            p.addUnit((Unit) warrior2);
+            Unit wizard = new Wizard(num);
+            p.addUnit((Unit) wizard);
         }
         
         public void moveRange(boolean active)
@@ -133,34 +157,37 @@ public class GameManager implements Runnable {
 
     public void showAbilityRange(Ability selectedAbility, boolean active) 
     {
-        int range = selectedAbility.getMaxRange()+1;
+        int range = selectedAbility.getMaxRange();
         int min = selectedAbility.getMinRange();
         int[] pos = currUnit.getPos();
-        //System.out.println("showAbilities");
-        if (active && min > 1)
+        if (active && min >= 1)
         {
-            markTileAbility(new int[] {pos[0]-1,pos[1]},range-1,active);
-            markTileAbility(new int[] {pos[0]+1,pos[1]},range-1,active);
-            markTileAbility(new int[] {pos[0],pos[1]-1},range-1,active);
-            markTileAbility(new int[] {pos[0],pos[1]+1},range-1,active);
-            markTileAbility(new int[] {pos[0]-1,pos[1]},min-1,false);
-            markTileAbility(new int[] {pos[0]+1,pos[1]},min-1,false);
-            markTileAbility(new int[] {pos[0],pos[1]-1},min-1,false);
-            markTileAbility(new int[] {pos[0],pos[1]+1},min-1,false);
+            {
+            markTileAbility(new int[] {pos[0]-1,pos[1]},range,active);
+            markTileAbility(new int[] {pos[0]+1,pos[1]},range,active);
+            markTileAbility(new int[] {pos[0],pos[1]-1},range,active);
+            markTileAbility(new int[] {pos[0],pos[1]+1},range,active);
+            }
+            {
+            markTileAbility(new int[] {pos[0]-1,pos[1]},min,false);
+            markTileAbility(new int[] {pos[0]+1,pos[1]},min,false);
+            markTileAbility(new int[] {pos[0],pos[1]-1},min,false);
+            markTileAbility(new int[] {pos[0],pos[1]+1},min,false);
+            }
         }
-        else if(active && min <= 1)
+        else if(active && min < 1)
         {
-            markTileAbility(new int[] {pos[0]-1,pos[1]},range-1,active);
-            markTileAbility(new int[] {pos[0]+1,pos[1]},range-1,active);
-            markTileAbility(new int[] {pos[0],pos[1]-1},range-1,active);
-            markTileAbility(new int[] {pos[0],pos[1]+1},range-1,active);
+            markTileAbility(new int[] {pos[0]-1,pos[1]},range,active);
+            markTileAbility(new int[] {pos[0]+1,pos[1]},range,active);
+            markTileAbility(new int[] {pos[0],pos[1]-1},range,active);
+            markTileAbility(new int[] {pos[0],pos[1]+1},range,active);
         }
         else
         {
-            markTileAbility(new int[] {pos[0]-1,pos[1]},range-1,active);
-            markTileAbility(new int[] {pos[0]+1,pos[1]},range-1,active);
-            markTileAbility(new int[] {pos[0],pos[1]-1},range-1,active);
-            markTileAbility(new int[] {pos[0],pos[1]+1},range-1,active);
+            markTileAbility(new int[] {pos[0]-1,pos[1]},range,active);
+            markTileAbility(new int[] {pos[0]+1,pos[1]},range,active);
+            markTileAbility(new int[] {pos[0],pos[1]-1},range,active);
+            markTileAbility(new int[] {pos[0],pos[1]+1},range,active);
         }
     }
 

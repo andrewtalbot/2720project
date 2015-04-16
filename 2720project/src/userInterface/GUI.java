@@ -464,6 +464,7 @@ public class GUI extends JFrame {
                         jButton1.setEnabled(true);
                     }
                     jButton4.setEnabled(true);
+                    selectedAbility = null;
                     updateButtons();
                 }
                 else

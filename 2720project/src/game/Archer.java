@@ -32,18 +32,19 @@ public class Archer implements Unit {
         return player;
     }
 
-    public Archer() {
+    public Archer(int p) {
 	currHp = maxHp;
             abilityList = new ArrayList<>();
-            abilityList.add(new Ability(4,2,0,1.0,new Area("Square",0),0,
+            abilityList.add(new Ability(4,1,0,1.0,new Area("Square",0),0,
                     "Ranged Attack",new Effect("None",1.0,0),true));
-            abilityList.add(new Ability(1,1,0,0.5,new Area("Square",0),0,
-                    "Melee Attack",new Effect("None",1.0,0),true));
+            /*abilityList.add(new Ability(1,0,0,0.5,new Area("Square",0),0,
+                    "Melee Attack",new Effect("None",1.0,0),true));*/
             activeEffectList = new ArrayList<>();
             moved = false;
             abilitied = false;
             pos = new int[2];
             name = "Archer";
+            player = p;
     }
         
         	/**
