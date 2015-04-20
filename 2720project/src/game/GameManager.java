@@ -15,16 +15,18 @@ public class GameManager implements Runnable {
     private LinkedList<Player> playerList;
     private LinkedList<Unit> turnOrder;
     private Unit currUnit;
+    private GameInitializer gi;
 
     /**
      * Constructor for the GameManager, it initializes all the variables it will need to 
      * keep track of so the GUI can do it's job.
      */
-    public GameManager() {
+    public GameManager(GameInitializer gin) {
         super();
         field = new Tile[6][6];
         playerList = new LinkedList();
         turnOrder = new LinkedList();
+        gi = gin;
 
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 6; j++) {
@@ -60,62 +62,20 @@ public class GameManager implements Runnable {
 
     /**
      * Method to initialize a game. It currently creates the units and arranges them
-     * in a default pattern. Ideally I would have had this in a separate class so it could be
-     * changed easily.
+     * in a default pattern, calls the method from another class.
      */
     public void initGame() {
-        playerList.clear();
-        Player p1 = new Player(1);
-        Player p2 = new Player(2);
-        playerList.add(p1);
-        playerList.add(p2);
-        unitSelection(p1, 1);
-        getField()[0][0].setUnit(p1.getUnit(0));
-        p1.getUnit(0).setPos(0, 0);
-        p1.getUnit(0).setImage("res/Archer-purple.png");
-        getField()[1][3].setUnit(p1.getUnit(1));
-        p1.getUnit(1).setPos(1, 3);
-        p1.getUnit(1).setImage("res/Warrior-purple.png");
-        getField()[1][2].setUnit(p1.getUnit(2));
-        p1.getUnit(2).setPos(1, 2);
-        p1.getUnit(2).setImage("res/Warrior-purple.png");
-        getField()[0][5].setUnit(p1.getUnit(3));
-        p1.getUnit(3).setPos(0, 5);
-        p1.getUnit(3).setImage("res/Wizard-purple.png");
-        unitSelection(p2, 2);
-        getField()[5][5].setUnit(p2.getUnit(0));
-        p2.getUnit(0).setPos(5, 5);
-        p2.getUnit(0).setImage("res/Archer-green.png");
-        getField()[4][3].setUnit(p2.getUnit(1));
-        p2.getUnit(1).setPos(4, 3);
-        p2.getUnit(1).setImage("res/Warrior-green.png");
-        getField()[4][2].setUnit(p2.getUnit(2));
-        p2.getUnit(2).setPos(4, 2);
-        p2.getUnit(2).setImage("res/Warrior-green.png");
-        getField()[5][0].setUnit(p2.getUnit(3));
-        p2.getUnit(3).setPos(5, 0);
-        p2.getUnit(3).setImage("res/Wizard-green.png");
-        for (int i = 0; i < 4; i++) {
-            turnOrder.add(p1.getUnit(i));
-            turnOrder.add(p2.getUnit(i));
-        }
+        gi.initGame(playerList,turnOrder,field);
         currUnit = turnOrder.getFirst();
     }
 
     /**
-     * Method to generate the units.
+     * Method to generate the units, calls the method from another class.
      * @param p the player who is currently getting units.
      * @param num the player's number.
      */
     private void unitSelection(Player p, int num) {
-        Unit archer = new Archer(num);
-        p.addUnit((Unit) archer);
-        Unit warrior1 = new Warrior(num);
-        p.addUnit((Unit) warrior1);
-        Unit warrior2 = new Warrior(num);
-        p.addUnit((Unit) warrior2);
-        Unit wizard = new Wizard(num);
-        p.addUnit((Unit) wizard);
+        gi.unitSelection(p, num);
     }
 
     /**

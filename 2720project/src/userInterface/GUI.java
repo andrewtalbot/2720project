@@ -45,15 +45,15 @@ public class GUI extends JFrame {
     /**
      * Creates new form UserInterface
      */
-    public GUI() {
-        initComponents();
+    public GUI(GameInitializer gin) {
+        initComponents(gin);
     }
 
     /**
      * Method to generate the GUI using swing components.
      */
     @SuppressWarnings("unchecked")
-    private void initComponents() {
+    private void initComponents(GameInitializer gin) {
         jPanel1 = new JPanel();
         jScrollPane1 = new JScrollPane();
         jList1 = new JList();
@@ -72,7 +72,7 @@ public class GUI extends JFrame {
         jLabel3 = new JLabel();
         jScrollPane3 = new JScrollPane();
         jTextArea1 = new JTextArea();
-        gm = new GameManager();
+        gm = new GameManager(gin);
         moveSelect = false;
         abilitySelect = false;
         selectedAbility = null;

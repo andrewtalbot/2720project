@@ -5,6 +5,7 @@
  */
 package userInterface;
 
+import game.BaseInitializer;
 import java.awt.EventQueue;
 import javax.swing.UIManager;
 
@@ -31,7 +32,7 @@ public class AppDriver {
         }
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUI().setVisible(true);
+                new GUI(new BaseInitializer()).setVisible(true);
             }
         });
     }
